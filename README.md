@@ -1,26 +1,21 @@
-# FastAPI Render Free
+# Kenaigo Telegram bot
 
-Minimal Python API without databases or external services.
+Minimal aiogram 3 webhook bot for @kenaigo_bot. Commands: /start, /profile, /help.
 
-## Local development
+## Render
 
-```sh
-python -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m uvicorn main:app --host 0.0.0.0 --port 8000
-curl -i http://127.0.0.1:8000/health
-```
+New Python web service, Free plan. Build: `pip install -r requirements.txt`.
+Start: `python main.py`. Set BOT_TOKEN as a secret in Render Environment.
+Render provides PORT and RENDER_EXTERNAL_URL automatically.
 
-Expected: HTTP 200 with `{"status":"ok"}`.
+Without BOT_TOKEN, only /health runs and reports bot_configured=false.
+With a token, startup checks the bot username and registers a webhook with secret header authentication.
+The token is never stored in this repository. Do not put it in GitHub, URLs, or chat.
 
-## Render settings
+Free Render services sleep when idle, so Telegram responses may be delayed on cold starts.
+There is no database, payment collection, referral tracking, or commission accounting yet.
 
-- Workspace: Dophmen's workspace
-- Service: new Web Service, Python runtime
-- Compute plan: **Free**
-- Build: `pip install -r requirements.txt`
-- Start: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-- HTTP health check path: `/health`
-- No database, disk, worker, or paid resources required.
+## Local verification
 
-Free services can sleep when idle. The first request after sleep can be slow.
+`pip install -r requirements.txt`
+`python -m unittest discover -s tests -v`

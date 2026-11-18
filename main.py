@@ -62,7 +62,9 @@ def create_app(token: str | None = None, external_url: str | None = None) -> web
 
     async def on_startup(bot: Bot) -> None:
         identity = await bot.get_me()
-        if identity.username != "kenaigo_bot":
+        logging.info("Telegram bot identity: @%s", identity.username)
+        if (identity.username or "").casefold() != "kenaigo_bot":
+            await bot.session.close()
             raise RuntimeError("BOT_TOKEN belongs to a different bot")
         await bot.set_my_commands([
             BotCommand(command="start", description="Главное меню"),

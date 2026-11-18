@@ -25,7 +25,7 @@ class BotTests(unittest.IsolatedAsyncioTestCase):
         import hashlib
         token = '123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi'
         secret = hashlib.sha256(('kenaigo-webhook:' + token).encode()).hexdigest()
-        with patch.object(Bot, 'get_me', new=AsyncMock(return_value=SimpleNamespace(username='kenaigo_bot'))), \
+        with patch.object(Bot, 'get_me', new=AsyncMock(return_value=SimpleNamespace(username='Kenaigo_bot'))), \
              patch.object(Bot, 'set_my_commands', new=AsyncMock()), \
              patch.object(Bot, 'set_webhook', new=AsyncMock(return_value=True)) as register, \
              patch.object(Dispatcher, 'feed_webhook_update', new=AsyncMock(return_value=None)) as feed:
